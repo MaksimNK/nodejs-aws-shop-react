@@ -8,16 +8,25 @@
         "id": "MyStack",
         "path": "MyStack",
         "children": {
-          "NodejsAwsShopReact2025Auto": {
-            "id": "NodejsAwsShopReact2025Auto",
-            "path": "MyStack/NodejsAwsShopReact2025Auto",
+          "XXXXXXXXXXXXXXXXXXXXXXXXXX": {
+            "id": "XXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "MyStack/NodejsAwsShopReact2025Auto/Resource",
+                "path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
+                    "bucketEncryption": {
+                      "serverSideEncryptionConfiguration": [
+                        {
+                          "serverSideEncryptionByDefault": {
+                            "sseAlgorithm": "AES256"
+                          }
+                        }
+                      ]
+                    },
                     "publicAccessBlockConfiguration": {
                       "blockPublicAcls": true,
                       "blockPublicPolicy": true,
@@ -30,7 +39,7 @@
                         "value": "true"
                       },
                       {
-                        "key": "aws-cdk:cr-owned:e1666557",
+                        "key": "aws-cdk:cr-owned:42a59bf7",
                         "value": "true"
                       }
                     ]
@@ -43,19 +52,53 @@
               },
               "Policy": {
                 "id": "Policy",
-                "path": "MyStack/NodejsAwsShopReact2025Auto/Policy",
+                "path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/Policy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "MyStack/NodejsAwsShopReact2025Auto/Policy/Resource",
+                    "path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/Policy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
                       "aws:cdk:cloudformation:props": {
                         "bucket": {
-                          "Ref": "NodejsAwsShopReact2025AutoAD6500A3"
+                          "Ref": "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B"
                         },
                         "policyDocument": {
                           "Statement": [
+                            {
+                              "Action": "s3:*",
+                              "Condition": {
+                                "Bool": {
+                                  "aws:SecureTransport": "false"
+                                }
+                              },
+                              "Effect": "Deny",
+                              "Principal": {
+                                "AWS": "*"
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
                             {
                               "Action": [
                                 "s3:PutBucketPolicy",
@@ -75,7 +118,7 @@
                               "Resource": [
                                 {
                                   "Fn::GetAtt": [
-                                    "NodejsAwsShopReact2025AutoAD6500A3",
+                                    "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                     "Arn"
                                   ]
                                 },
@@ -85,7 +128,7 @@
                                     [
                                       {
                                         "Fn::GetAtt": [
-                                          "NodejsAwsShopReact2025AutoAD6500A3",
+                                          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                           "Arn"
                                         ]
                                       },
@@ -113,7 +156,7 @@
                               "Resource": [
                                 {
                                   "Fn::GetAtt": [
-                                    "NodejsAwsShopReact2025AutoAD6500A3",
+                                    "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                     "Arn"
                                   ]
                                 },
@@ -123,7 +166,7 @@
                                     [
                                       {
                                         "Fn::GetAtt": [
-                                          "NodejsAwsShopReact2025AutoAD6500A3",
+                                          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                           "Arn"
                                         ]
                                       },
@@ -150,7 +193,7 @@
                                   [
                                     {
                                       "Fn::GetAtt": [
-                                        "NodejsAwsShopReact2025AutoAD6500A3",
+                                        "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                         "Arn"
                                       ]
                                     },
@@ -178,11 +221,11 @@
               },
               "AutoDeleteObjectsCustomResource": {
                 "id": "AutoDeleteObjectsCustomResource",
-                "path": "MyStack/NodejsAwsShopReact2025Auto/AutoDeleteObjectsCustomResource",
+                "path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/AutoDeleteObjectsCustomResource",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "MyStack/NodejsAwsShopReact2025Auto/AutoDeleteObjectsCustomResource/Default",
+                    "path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/AutoDeleteObjectsCustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
                       "version": "2.178.2"
@@ -295,7 +338,7 @@
                         {
                           "domainName": {
                             "Fn::GetAtt": [
-                              "NodejsAwsShopReact2025AutoAD6500A3",
+                              "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                               "RegionalDomainName"
                             ]
                           },
@@ -332,6 +375,14 @@
                         "compress": true,
                         "viewerProtocolPolicy": "https-only"
                       },
+                      "customErrorResponses": [
+                        {
+                          "errorCode": 404,
+                          "responseCode": 200,
+                          "responsePagePath": "/index.html"
+                        }
+                      ],
+                      "defaultRootObject": "index.html",
                       "httpVersion": "http2",
                       "ipv6Enabled": true
                     }
@@ -349,21 +400,21 @@
               "metadata": []
             }
           },
-          "DeployReactApp": {
-            "id": "DeployReactApp",
-            "path": "MyStack/DeployReactApp",
+          "XXXXXXXXXXXXXX": {
+            "id": "XXXXXXXXXXXXXX",
+            "path": "MyStack/XXXXXXXXXXXXXX",
             "children": {
               "AwsCliLayer": {
                 "id": "AwsCliLayer",
-                "path": "MyStack/DeployReactApp/AwsCliLayer",
+                "path": "MyStack/XXXXXXXXXXXXXX/AwsCliLayer",
                 "children": {
                   "Code": {
                     "id": "Code",
-                    "path": "MyStack/DeployReactApp/AwsCliLayer/Code",
+                    "path": "MyStack/XXXXXXXXXXXXXX/AwsCliLayer/Code",
                     "children": {
                       "Stage": {
                         "id": "Stage",
-                        "path": "MyStack/DeployReactApp/AwsCliLayer/Code/Stage",
+                        "path": "MyStack/XXXXXXXXXXXXXX/AwsCliLayer/Code/Stage",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.AssetStaging",
                           "version": "2.178.2"
@@ -371,7 +422,7 @@
                       },
                       "AssetBucket": {
                         "id": "AssetBucket",
-                        "path": "MyStack/DeployReactApp/AwsCliLayer/Code/AssetBucket",
+                        "path": "MyStack/XXXXXXXXXXXXXX/AwsCliLayer/Code/AssetBucket",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                           "version": "2.178.2",
@@ -386,7 +437,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "MyStack/DeployReactApp/AwsCliLayer/Resource",
+                    "path": "MyStack/XXXXXXXXXXXXXX/AwsCliLayer/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
                       "aws:cdk:cloudformation:props": {
@@ -413,7 +464,7 @@
               },
               "CustomResourceHandler": {
                 "id": "CustomResourceHandler",
-                "path": "MyStack/DeployReactApp/CustomResourceHandler",
+                "path": "MyStack/XXXXXXXXXXXXXX/CustomResourceHandler",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.SingletonFunction",
                   "version": "2.178.2",
@@ -422,11 +473,11 @@
               },
               "Asset1": {
                 "id": "Asset1",
-                "path": "MyStack/DeployReactApp/Asset1",
+                "path": "MyStack/XXXXXXXXXXXXXX/Asset1",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "MyStack/DeployReactApp/Asset1/Stage",
+                    "path": "MyStack/XXXXXXXXXXXXXX/Asset1/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.178.2"
@@ -434,7 +485,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "MyStack/DeployReactApp/Asset1/AssetBucket",
+                    "path": "MyStack/XXXXXXXXXXXXXX/Asset1/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.178.2",
@@ -449,11 +500,11 @@
               },
               "CustomResource": {
                 "id": "CustomResource",
-                "path": "MyStack/DeployReactApp/CustomResource",
+                "path": "MyStack/XXXXXXXXXXXXXX/CustomResource",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "MyStack/DeployReactApp/CustomResource/Default",
+                    "path": "MyStack/XXXXXXXXXXXXXX/CustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
                       "version": "2.178.2"
@@ -598,7 +649,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "NodejsAwsShopReact2025AutoAD6500A3",
+                                        "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                         "Arn"
                                       ]
                                     },
@@ -608,7 +659,7 @@
                                         [
                                           {
                                             "Fn::GetAtt": [
-                                              "NodejsAwsShopReact2025AutoAD6500A3",
+                                              "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
                                               "Arn"
                                             ]
                                           },
@@ -703,7 +754,7 @@
                     "handler": "index.handler",
                     "layers": [
                       {
-                        "Ref": "DeployReactAppAwsCliLayer6C83B54F"
+                        "Ref": "XXXXXXXXXXXXXXAwsCliLayerF14FA9B5"
                       }
                     ],
                     "role": {

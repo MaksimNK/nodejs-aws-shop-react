@@ -1,8 +1,18 @@
 {
+ "Description": "React application hosting stack",
  "Resources": {
-  "NodejsAwsShopReact2025AutoAD6500A3": {
+  "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
     "PublicAccessBlockConfiguration": {
      "BlockPublicAcls": true,
      "BlockPublicPolicy": true,
@@ -15,7 +25,7 @@
       "Value": "true"
      },
      {
-      "Key": "aws-cdk:cr-owned:e1666557",
+      "Key": "aws-cdk:cr-owned:42a59bf7",
       "Value": "true"
      }
     ]
@@ -23,17 +33,51 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "MyStack/NodejsAwsShopReact2025Auto/Resource"
+    "aws:cdk:path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/Resource"
    }
   },
-  "NodejsAwsShopReact2025AutoPolicy226F3BAE": {
+  "XXXXXXXXXXXXXXXXXXXXXXXXXXPolicy5DB3C31F": {
    "Type": "AWS::S3::BucketPolicy",
    "Properties": {
     "Bucket": {
-     "Ref": "NodejsAwsShopReact2025AutoAD6500A3"
+     "Ref": "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B"
     },
     "PolicyDocument": {
      "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
       {
        "Action": [
         "s3:PutBucketPolicy",
@@ -53,7 +97,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "NodejsAwsShopReact2025AutoAD6500A3",
+          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
           "Arn"
          ]
         },
@@ -63,7 +107,7 @@
           [
            {
             "Fn::GetAtt": [
-             "NodejsAwsShopReact2025AutoAD6500A3",
+             "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
              "Arn"
             ]
            },
@@ -91,7 +135,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "NodejsAwsShopReact2025AutoAD6500A3",
+          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
           "Arn"
          ]
         },
@@ -101,7 +145,7 @@
           [
            {
             "Fn::GetAtt": [
-             "NodejsAwsShopReact2025AutoAD6500A3",
+             "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
              "Arn"
             ]
            },
@@ -128,7 +172,7 @@
          [
           {
            "Fn::GetAtt": [
-            "NodejsAwsShopReact2025AutoAD6500A3",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
             "Arn"
            ]
           },
@@ -142,10 +186,10 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "MyStack/NodejsAwsShopReact2025Auto/Policy/Resource"
+    "aws:cdk:path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/Policy/Resource"
    }
   },
-  "NodejsAwsShopReact2025AutoAutoDeleteObjectsCustomResource6871BDD8": {
+  "XXXXXXXXXXXXXXXXXXXXXXXXXXAutoDeleteObjectsCustomResource6D50899E": {
    "Type": "Custom::S3AutoDeleteObjects",
    "Properties": {
     "ServiceToken": {
@@ -155,16 +199,16 @@
      ]
     },
     "BucketName": {
-     "Ref": "NodejsAwsShopReact2025AutoAD6500A3"
+     "Ref": "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B"
     }
    },
    "DependsOn": [
-    "NodejsAwsShopReact2025AutoPolicy226F3BAE"
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXPolicy5DB3C31F"
    ],
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "MyStack/NodejsAwsShopReact2025Auto/AutoDeleteObjectsCustomResource/Default"
+    "aws:cdk:path": "MyStack/XXXXXXXXXXXXXXXXXXXXXXXXXX/AutoDeleteObjectsCustomResource/Default"
    }
   },
   "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
@@ -225,7 +269,7 @@
       [
        "Lambda function for auto-deleting objects in ",
        {
-        "Ref": "NodejsAwsShopReact2025AutoAD6500A3"
+        "Ref": "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B"
        },
        " S3 bucket."
       ]
@@ -256,6 +300,13 @@
    "Type": "AWS::CloudFront::Distribution",
    "Properties": {
     "DistributionConfig": {
+     "CustomErrorResponses": [
+      {
+       "ErrorCode": 404,
+       "ResponseCode": 200,
+       "ResponsePagePath": "/index.html"
+      }
+     ],
      "DefaultCacheBehavior": {
       "AllowedMethods": [
        "GET",
@@ -272,6 +323,7 @@
       "TargetOriginId": "MyStackMyReactAppDistributionOrigin172F61844",
       "ViewerProtocolPolicy": "https-only"
      },
+     "DefaultRootObject": "index.html",
      "Enabled": true,
      "HttpVersion": "http2",
      "IPV6Enabled": true,
@@ -279,7 +331,7 @@
       {
        "DomainName": {
         "Fn::GetAtt": [
-         "NodejsAwsShopReact2025AutoAD6500A3",
+         "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
          "RegionalDomainName"
         ]
        },
@@ -305,7 +357,7 @@
     "aws:cdk:path": "MyStack/MyReactAppDistribution/Resource"
    }
   },
-  "DeployReactAppAwsCliLayer6C83B54F": {
+  "XXXXXXXXXXXXXXAwsCliLayerF14FA9B5": {
    "Type": "AWS::Lambda::LayerVersion",
    "Properties": {
     "Content": {
@@ -317,13 +369,13 @@
     "Description": "/opt/awscli/aws"
    },
    "Metadata": {
-    "aws:cdk:path": "MyStack/DeployReactApp/AwsCliLayer/Resource",
+    "aws:cdk:path": "MyStack/XXXXXXXXXXXXXX/AwsCliLayer/Resource",
     "aws:asset:path": "asset.d05f411f7ba433656b2a05b59c3b3049e9944647af407b68bb90d2d918e00997.zip",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Content"
    }
   },
-  "DeployReactAppCustomResourceFEAA9FB4": {
+  "XXXXXXXXXXXXXXCustomResource796AD676": {
    "Type": "Custom::CDKBucketDeployment",
    "Properties": {
     "ServiceToken": {
@@ -338,12 +390,15 @@
      }
     ],
     "SourceObjectKeys": [
-     "d7cdc111c8d49ae29f03b9a0067a4d076f43060f28b3094c3d6c8331aa8ad531.zip"
+     "63b28ca60395397448850d9d57ccc6c548035d16f21ad7eb37357b45988e762a.zip"
     ],
     "DestinationBucketName": {
-     "Ref": "NodejsAwsShopReact2025AutoAD6500A3"
+     "Ref": "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B"
     },
     "Prune": true,
+    "SystemMetadata": {
+     "cache-control": "public, max-age=31536000, s-maxage=31536000"
+    },
     "DistributionId": {
      "Ref": "MyReactAppDistribution0CBCC4A3"
     },
@@ -355,7 +410,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
    "Metadata": {
-    "aws:cdk:path": "MyStack/DeployReactApp/CustomResource/Default"
+    "aws:cdk:path": "MyStack/XXXXXXXXXXXXXX/CustomResource/Default"
    }
   },
   "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
@@ -455,7 +510,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "NodejsAwsShopReact2025AutoAD6500A3",
+          "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
           "Arn"
          ]
         },
@@ -465,7 +520,7 @@
           [
            {
             "Fn::GetAtt": [
-             "NodejsAwsShopReact2025AutoAD6500A3",
+             "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B",
              "Arn"
             ]
            },
@@ -514,7 +569,7 @@
     "Handler": "index.handler",
     "Layers": [
      {
-      "Ref": "DeployReactAppAwsCliLayer6C83B54F"
+      "Ref": "XXXXXXXXXXXXXXAwsCliLayerF14FA9B5"
      }
     ],
     "Role": {
@@ -680,6 +735,9 @@
      "MyReactAppDistribution0CBCC4A3",
      "DomainName"
     ]
+   },
+   "Export": {
+    "Name": "CloudFrontDistributionURL"
    }
   }
  },

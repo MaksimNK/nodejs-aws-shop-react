@@ -54,7 +54,7 @@ export function useUpsertAvailableProduct(id: string | undefined) {
           Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
         },
       };
-      const path = `${API_PATHS.bff}/products`;
+      const path = `${API_PATHS.product}/products`;
       if (id) return axios.put<AvailableProduct>(path, values, config);
       return axios.post<AvailableProduct>(path, values, config);
     },

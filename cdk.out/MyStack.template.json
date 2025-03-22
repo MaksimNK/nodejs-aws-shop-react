@@ -390,7 +390,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "63b28ca60395397448850d9d57ccc6c548035d16f21ad7eb37357b45988e762a.zip"
+     "fa3951087037348ae220578cb33bc3b2e747601954fd2adcbfc60927c38763cc.zip"
     ],
     "DestinationBucketName": {
      "Ref": "XXXXXXXXXXXXXXXXXXXXXXXXXX6E203C5B"
